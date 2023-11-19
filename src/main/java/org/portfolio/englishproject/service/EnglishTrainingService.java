@@ -21,4 +21,8 @@ public interface EnglishTrainingService {
     ResponseEntity<String> makeCategory();
 
     ResponseEntity<List<Word>> getAllWords();
+
+    ResponseEntity<String> deleteWord(String word, String translate);
+
+    ResponseEntity<Word> editWord(Word word);
 }

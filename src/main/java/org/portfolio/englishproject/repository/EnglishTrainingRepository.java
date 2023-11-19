@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface EnglishTrainingRepository extends JpaRepository<Word, Integer> {
-    Optional<Word> findByWordAndTranslate(String word, String translate);
+    Optional<Void> deleteByWordAndTranslate(String word, String translate);
+
 }

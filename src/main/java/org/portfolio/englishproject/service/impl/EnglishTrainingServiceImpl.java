@@ -6,6 +6,7 @@ import org.portfolio.englishproject.repository.EnglishTrainingRepository;
 import org.portfolio.englishproject.service.EnglishTrainingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -21,8 +22,7 @@ public class EnglishTrainingServiceImpl implements EnglishTrainingService {
     private final EnglishTrainingRepository repository;
     @Override
     public ResponseEntity<Word> sendWord(Word word) {
-        System.out.println(word);
-//        repository.saveAll(Arrays.asList(words));//TODO: fix this
+        repository.save(word);
         return ResponseEntity.ok(word);
     }
 
@@ -51,8 +51,7 @@ public class EnglishTrainingServiceImpl implements EnglishTrainingService {
                 }
                 words.add(new Word(word.toString().trim(), translate.toString().trim()));
             }
-//            repository.saveAll(words);//TODO: fix this
-            System.out.println(words);
+            repository.saveAll(words);
             return ResponseEntity.ok(words);
         }catch (IOException e) {
             e.printStackTrace();
@@ -85,5 +84,19 @@ public class EnglishTrainingServiceImpl implements EnglishTrainingService {
     @Override
     public ResponseEntity<List<Word>> getAllWords() {
         return ResponseEntity.ok(repository.findAll());
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<String> deleteWord(String word, String translate) {
+        repository.deleteByWordAndTranslate(word, translate);
+        return ResponseEntity.ok("deleted");
+    }
+
+    @Override
+    public ResponseEntity<Word> editWord(Word word) {
+        System.out.println(word);
+        repository.save(word);
+        return ResponseEntity.ok(word);
     }
 }

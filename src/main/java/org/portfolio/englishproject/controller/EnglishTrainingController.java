@@ -2,15 +2,12 @@ package org.portfolio.englishproject.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.portfolio.englishproject.model.Word;
-import org.portfolio.englishproject.repository.EnglishTrainingRepository;
-import org.portfolio.englishproject.service.EnglishTrainingService;
 import org.portfolio.englishproject.service.impl.EnglishTrainingServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.util.List;
 
 @RestController
@@ -19,8 +16,6 @@ import java.util.List;
 @RequestMapping("/api")
 public class EnglishTrainingController {
 
-    //This site was made for my girlfriend, who broke up with me, because she went to another country.
-    // I hope she will be happy. I love you. I will never forget you. David 17.11.2023
     private final EnglishTrainingServiceImpl service;
 
     @GetMapping("/getAllWords")
@@ -47,6 +42,16 @@ public class EnglishTrainingController {
     @PostMapping("/game")
     public ResponseEntity<String> gameCheck(@RequestBody Word word, @RequestParam("translate") String translate){
         return service.gameCheck(word, translate);
+    }
+    @DeleteMapping("/deleteWord")
+    public ResponseEntity<String> deleteWord(@RequestParam("word") String word, @RequestParam("translate") String translate){
+        System.out.println("deleteWord");
+        return service.deleteWord(word, translate);
+    }
+    @PutMapping("/editWord")
+    public ResponseEntity<Word> editWord(@RequestBody Word word){
+        System.out.println("editWord");
+        return service.editWord(word);
     }
 
 }
