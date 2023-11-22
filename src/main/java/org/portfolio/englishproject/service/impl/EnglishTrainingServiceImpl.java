@@ -64,7 +64,7 @@ public class EnglishTrainingServiceImpl implements EnglishTrainingService {
     public ResponseEntity<Word> gameGetText() {
         List<Word> words = repository.findAll();
         Random random = new Random();
-        int index = random.nextInt(0,words.size());
+        int index = random.nextInt(words.size());
         return ResponseEntity.ok(words.get(index));
     }
 
