@@ -18,11 +18,11 @@ public class Word {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 //    String category;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
+
     String word;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
+
     String translate;
-//    int user_id;//TODO
+//    int user_id;//TODO user_id and category
 
     public Word(String word, String translate) {
         this.word = word;

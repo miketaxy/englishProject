@@ -1,28 +1,39 @@
 package org.portfolio.englishproject.config;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.portfolio.englishproject.model.User;
 
-import java.security.Key;
+
+import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.Map;
 
 public class JwtUtil {
-    private static final String SECRET_KEY = "e82c73692e6fa99b1770cfd6605bfc5b9ec3a12b362d9de5459a2612191497c4";
+    public static final SecretKey SECRET_KEY = getSigningKey();
 
 
-    public static String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    public static String generateToken(User user) {
         return Jwts
                 .builder()
-                .subject(userDetails.getUsername())
-                .signWith(getSigningKey())
+                .subject(user.getUsername())
+                .signWith(SECRET_KEY)
                 .expiration(new Date(System.currentTimeMillis() + 864000000))
                 .compact();
     }
-    public static Key getSigningKey(){
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyBytes);
+    private static SecretKey getSigningKey(){
+        return Jwts.SIG.HS256.key().build();
     }
+
+
+    public static Claims parseToken(String token){
+        return Jwts.parser()
+                .verifyWith(SECRET_KEY)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+
+
+    }
+
 }
