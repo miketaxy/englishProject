@@ -1,6 +1,7 @@
 package org.portfolio.englishproject.model;
 
 import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Data
 public class LoginUser {
@@ -12,5 +13,13 @@ public class LoginUser {
         this.username = username;
         this.password = password;
         this.role = Role.valueOf("USER");
+    }
+
+    public User toUser(String passwordEncode){
+        return User.builder()
+                .username(username)
+                .password(passwordEncode)
+                .role(role)
+                .build();
     }
 }

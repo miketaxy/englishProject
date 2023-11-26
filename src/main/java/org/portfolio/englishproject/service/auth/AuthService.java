@@ -8,6 +8,7 @@ import org.portfolio.englishproject.model.LoginUser;
 import org.portfolio.englishproject.repository.authRepo.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class AuthService{
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthenticationResponse loginUser(LoginUser request) {
         authenticationManager.authenticate(
@@ -25,6 +27,13 @@ public class AuthService{
         );
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow();
+        var jwtToken = JwtUtil.generateToken(user);
+        return AuthenticationResponse.builder().token(jwtToken).build();
+    }
+
+    public AuthenticationResponse registerUser(LoginUser request) {
+        String passwordEncode = passwordEncoder.encode(request.getPassword());
+        var user = userRepository.save(request.toUser(passwordEncode));
         var jwtToken = JwtUtil.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
