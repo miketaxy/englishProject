@@ -1,9 +1,11 @@
 package org.portfolio.englishproject.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Data
+@NoArgsConstructor
 public class LoginUser {
     private String username;
     private String password;
