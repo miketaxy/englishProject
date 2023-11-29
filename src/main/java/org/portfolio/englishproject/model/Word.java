@@ -2,10 +2,8 @@ package org.portfolio.englishproject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
+import org.springframework.lang.NonNull;
 
 
 @Data
@@ -13,19 +11,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Word {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-//    String category;
+    private int id;
 
-    String word;
+    private String category;
 
-    String translate;
-//    int user_id;//TODO user_id and category
+    private String word;
 
-    public Word(String word, String translate) {
-        this.word = word;
-        this.translate = translate;
-    }
+    private String translate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

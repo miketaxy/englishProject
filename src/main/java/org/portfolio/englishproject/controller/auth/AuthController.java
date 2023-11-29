@@ -1,4 +1,4 @@
-package org.portfolio.englishproject.controller;
+package org.portfolio.englishproject.controller.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.portfolio.englishproject.model.LoginUser;
@@ -21,5 +21,10 @@ public class AuthController {
     @RequestMapping(value = "/register" , method = RequestMethod.POST)
     public ResponseEntity<?> register(@RequestBody LoginUser loginUser){
         return ResponseEntity.ok(authService.registerUser(loginUser));
+    }
+
+    @RequestMapping(value = "/getUsername" , method = RequestMethod.GET)
+    public String giveUsername(@RequestHeader("Authorization") String bearerToken){
+        return authService.giveUsername(bearerToken);
     }
 }

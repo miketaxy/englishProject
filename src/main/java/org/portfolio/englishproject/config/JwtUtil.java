@@ -2,6 +2,7 @@ package org.portfolio.englishproject.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.NoArgsConstructor;
 import org.portfolio.englishproject.model.User;
 
 
@@ -31,9 +32,10 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-
-
-
     }
 
+    public static String getUsername(String bearerToken){
+        String token = bearerToken.substring(7);
+        return parseToken(token).getSubject();
+    }
 }

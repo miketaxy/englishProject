@@ -1,5 +1,6 @@
 package org.portfolio.englishproject.service.auth;
 
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.portfolio.englishproject.config.AuthenticationResponse;
 
@@ -36,5 +37,10 @@ public class AuthService{
         var user = userRepository.save(request.toUser(passwordEncode));
         var jwtToken = JwtUtil.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
+    }
+
+    public String giveUsername(String bearerToken){
+        String token = bearerToken.substring(7);
+        return JwtUtil.parseToken(token).getSubject();
     }
 }

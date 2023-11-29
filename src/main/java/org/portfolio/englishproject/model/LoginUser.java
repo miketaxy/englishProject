@@ -14,14 +14,14 @@ public class LoginUser {
     public LoginUser(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = Role.valueOf("USER");
+        this.role = Role.USER;
     }
 
     public User toUser(String passwordEncode){
         return User.builder()
                 .username(username)
                 .password(passwordEncode)
-                .role(role)
+                .role(Role.USER)
                 .build();
     }
 }
