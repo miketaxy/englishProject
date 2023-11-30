@@ -1,16 +1,12 @@
 package org.portfolio.englishproject.service;
 
 import org.portfolio.englishproject.DTO.EditWordDTO;
-import org.portfolio.englishproject.DTO.SendWordDTO;
 import org.portfolio.englishproject.model.Word;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 
-public interface EnglishTrainingService {
+public interface WordService {
 
     ResponseEntity<List<Word>> getAllWords(String header);
 

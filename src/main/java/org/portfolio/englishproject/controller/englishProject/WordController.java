@@ -2,9 +2,8 @@ package org.portfolio.englishproject.controller.englishProject;
 
 import lombok.RequiredArgsConstructor;
 import org.portfolio.englishproject.DTO.EditWordDTO;
-import org.portfolio.englishproject.DTO.SendWordDTO;
 import org.portfolio.englishproject.model.Word;
-import org.portfolio.englishproject.service.EnglishTrainingService;
+import org.portfolio.englishproject.service.WordService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +13,9 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class EnglishTrainingController {
+public class WordController {
 
-    private final EnglishTrainingService service;
+    private final WordService service;
 
     @GetMapping("/getAllWords")
     public ResponseEntity<List<Word>> getAllWords(@RequestHeader("Authorization") String bearerToken){

@@ -3,12 +3,10 @@ package org.portfolio.englishproject.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.portfolio.englishproject.DTO.EditWordDTO;
 import org.portfolio.englishproject.config.JwtUtil;
-import org.portfolio.englishproject.model.Category;
 import org.portfolio.englishproject.model.Word;
-import org.portfolio.englishproject.repository.CategoryRepository;
 import org.portfolio.englishproject.repository.WordRepository;
 import org.portfolio.englishproject.repository.authRepo.UserRepository;
-import org.portfolio.englishproject.service.EnglishTrainingService;
+import org.portfolio.englishproject.service.WordService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EnglishTrainingServiceImpl implements EnglishTrainingService {
+public class WordServiceImpl implements WordService {
     private final WordRepository wordRepository;
     private final UserRepository userRepository;
 
