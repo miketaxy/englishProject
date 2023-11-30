@@ -1,6 +1,7 @@
 package org.portfolio.englishproject.controller.englishProject;
 
 import lombok.RequiredArgsConstructor;
+import org.portfolio.englishproject.DTO.SendFileDTO;
 import org.portfolio.englishproject.DTO.SendWordDTO;
 import org.portfolio.englishproject.model.Word;
 import org.portfolio.englishproject.service.SendFileService;
@@ -21,7 +22,7 @@ public class SendFileController {
     }
 
     @PostMapping("/sendFile")
-    public ResponseEntity<List<Word>> sendFile(@RequestBody MultipartFile file, @RequestHeader("Authorization") String bearerToken){
-        return service.sendFile(file, bearerToken);
+    public ResponseEntity<List<Word>> sendFile(@RequestBody SendFileDTO sendWordDTO, @RequestHeader("Authorization") String bearerToken){
+        return service.sendFile(sendWordDTO, bearerToken);
     }
 }

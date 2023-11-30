@@ -2,7 +2,7 @@ package org.portfolio.englishproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.portfolio.englishproject.model.Word;
-import org.portfolio.englishproject.repository.EnglishTrainingRepository;
+import org.portfolio.englishproject.repository.WordRepository;
 import org.portfolio.englishproject.service.GamesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class GamesServiceImpl implements GamesService {
-    private final EnglishTrainingRepository repository;
+    private final WordRepository repository;
     @Override
     public ResponseEntity<Word> gameGetText() {
         List<Word> words = repository.findAll();

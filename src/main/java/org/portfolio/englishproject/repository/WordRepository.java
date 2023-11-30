@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EnglishTrainingRepository extends JpaRepository<Word, Integer> {
+public interface WordRepository extends JpaRepository<Word, Integer> {
     Optional<Void> deleteByWordAndTranslate(String word, String translate);
     Word[] findByUser(User user);
 }

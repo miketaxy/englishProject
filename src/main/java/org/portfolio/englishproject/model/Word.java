@@ -1,13 +1,11 @@
 package org.portfolio.englishproject.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.lang.NonNull;
 
 
 @Data
-@Table(name="Words")
+@Table(name="words")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,11 +15,13 @@ public class Word {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String category;
-
     private String word;
 
     private String translate;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

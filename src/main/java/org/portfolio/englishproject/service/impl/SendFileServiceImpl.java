@@ -1,15 +1,16 @@
 package org.portfolio.englishproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.portfolio.englishproject.DTO.SendFileDTO;
 import org.portfolio.englishproject.DTO.SendWordDTO;
 import org.portfolio.englishproject.config.JwtUtil;
+import org.portfolio.englishproject.model.User;
 import org.portfolio.englishproject.model.Word;
-import org.portfolio.englishproject.repository.EnglishTrainingRepository;
+import org.portfolio.englishproject.repository.WordRepository;
 import org.portfolio.englishproject.repository.authRepo.UserRepository;
 import org.portfolio.englishproject.service.SendFileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,20 +20,20 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SendFileServiceImpl implements SendFileService {
-    private final EnglishTrainingRepository repository;
+    private final WordRepository repository;
     private final UserRepository userRepository;
     @Override
     public ResponseEntity<Word> sendWord(SendWordDTO sendWord, String bearerToken) {
-        Word word = sendWord.makeWord(userRepository.findByUsername(JwtUtil.getUsername(bearerToken)).get());
+        Word word = sendWord.makeWord(getUser(bearerToken));
         repository.save(word);
         return ResponseEntity.ok(word);
     }
 
     @Override
-    public ResponseEntity<List<Word>> sendFile(MultipartFile file, String bearerToken) {
+    public ResponseEntity<List<Word>> sendFile(SendFileDTO sendFileDTO, String bearerToken) {
         try {
             List<Word> words = new ArrayList<>();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(sendFileDTO.getFile().getInputStream()));
             String line;
             while((line = reader.readLine()) != null){
                 boolean isTranslate = false;
@@ -51,7 +52,7 @@ public class SendFileServiceImpl implements SendFileService {
                         isTranslate = true;
                     }
                 }
-                words.add(new SendWordDTO(word.toString().trim(), translate.toString().trim()).makeWord(userRepository.findByUsername(JwtUtil.getUsername(bearerToken)).get()));
+                words.add(new SendWordDTO(word.toString().trim(), translate.toString().trim(), sendFileDTO.getCategory()).makeWord(getUser(bearerToken)));
             }
             repository.saveAll(words);
             return ResponseEntity.ok(words);
@@ -60,5 +61,9 @@ public class SendFileServiceImpl implements SendFileService {
             return ResponseEntity.ofNullable(null);
         }
 
+    }
+
+    private User getUser(String bearerToken){
+        return userRepository.findByUsername(JwtUtil.getUsername(bearerToken)).get();
     }
 }
