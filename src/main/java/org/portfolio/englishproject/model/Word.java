@@ -23,4 +23,10 @@ public class Word {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Word(String word, String translate, User user) {
+        this.word = word;
+        this.translate = translate;
+        this.user = user;
+    }
+
 }

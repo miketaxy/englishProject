@@ -10,7 +10,9 @@ public interface WordService {
 
     ResponseEntity<List<Word>> getAllWords(String header);
 
-    ResponseEntity<String> deleteWord(String word, String translate);
+    ResponseEntity<String> deleteWord(int id);
 
     ResponseEntity<Word> editWord(EditWordDTO editWordDTO, String header);
+
+
 }

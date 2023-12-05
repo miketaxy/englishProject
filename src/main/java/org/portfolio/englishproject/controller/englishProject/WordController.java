@@ -23,15 +23,12 @@ public class WordController {
     }
 
 
-    @DeleteMapping("/deleteWord")
-    public ResponseEntity<String> deleteWord(@RequestParam("word") String word, @RequestParam("translate") String translate){
-        System.out.println("deleteWord");
-        return service.deleteWord(word, translate);
+    @DeleteMapping("/deleteWord/{id}")
+    public ResponseEntity<String> deleteWord(@PathVariable int id){
+        return service.deleteWord(id);
     }
     @PutMapping("/editWord")
     public ResponseEntity<Word> editWord(@RequestBody EditWordDTO editWordDTO, @RequestHeader("Authorization") String bearerToken){
-        System.out.println(editWordDTO);
-        System.out.println("HELLOOOOO");
         return service.editWord(editWordDTO, bearerToken);
     }
 

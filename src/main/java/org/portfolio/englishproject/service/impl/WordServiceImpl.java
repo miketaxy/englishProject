@@ -29,8 +29,8 @@ public class WordServiceImpl implements WordService {
 
     @Override
     @Transactional
-    public ResponseEntity<String> deleteWord(String word, String translate) {
-        wordRepository.deleteByWordAndTranslate(word, translate);
+    public ResponseEntity<String> deleteWord(int id) {
+        wordRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

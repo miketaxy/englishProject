@@ -34,13 +34,21 @@ public class AuthService{
 
     public AuthenticationResponse registerUser(LoginUser request) {
         String passwordEncode = passwordEncoder.encode(request.getPassword());
-        var user = userRepository.save(request.toUser(passwordEncode));
-        var jwtToken = JwtUtil.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        try {
+            var user = userRepository.save(request.toUser(passwordEncode));
+            var jwtToken = JwtUtil.generateToken(user);
+            return AuthenticationResponse.builder().token(jwtToken).message("success").build();
+        } catch (Exception e) {
+            return AuthenticationResponse.builder().token(null).message("Username is taken").build();
+        }
     }
 
-    public String giveUsername(String bearerToken){
+    public String getUsername(String bearerToken){
         String token = bearerToken.substring(7);
         return JwtUtil.parseToken(token).getSubject();
+    }
+
+    public boolean isUsernameTaken(String username){
+        return userRepository.findByUsername(username).isPresent();
     }
 }

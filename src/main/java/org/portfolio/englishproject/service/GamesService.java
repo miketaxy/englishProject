@@ -1,10 +1,10 @@
 package org.portfolio.englishproject.service;
 
-import org.portfolio.englishproject.model.Word;
+import org.portfolio.englishproject.DTO.SendWordDTO;
 import org.springframework.http.ResponseEntity;
 
 public interface GamesService {
-    ResponseEntity<Word> gameGetText();
+    ResponseEntity<SendWordDTO> gameGetText(String bearerToken);
 
-    ResponseEntity<String> gameCheck(Word word, String translate);
+    ResponseEntity<String> gameCheck(SendWordDTO word, String translate);
 }

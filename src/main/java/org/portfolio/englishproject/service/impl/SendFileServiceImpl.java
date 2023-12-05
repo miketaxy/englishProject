@@ -52,7 +52,7 @@ public class SendFileServiceImpl implements SendFileService {
                         isTranslate = true;
                     }
                 }
-                words.add(new SendWordDTO(word.toString().trim(), translate.toString().trim(), sendFileDTO.getCategory()).makeWord(getUser(bearerToken)));
+                words.add(new Word(word.toString().trim(), translate.toString().trim(), getUser(bearerToken)));
             }
             repository.saveAll(words);
             return ResponseEntity.ok(words);

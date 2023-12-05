@@ -12,8 +12,6 @@ import org.portfolio.englishproject.model.Word;
 public class SendWordDTO {
     private String word;
     private String translate;
-    private String category;
-
 
     public Word makeWord(User user){
         return Word.builder()

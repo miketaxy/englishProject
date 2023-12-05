@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.portfolio.englishproject.handler.GlobalExceptionHandler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -61,12 +62,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    public boolean validateToken(String token){
+    public boolean validateToken(String token) throws IOException {
         try {
             Jwts.parser().verifyWith(JwtUtil.SECRET_KEY).build().parseSignedClaims(token); //TODO: PROBABLY SECRET_KEY MUST BE PRIVATE OR AT LEAST NOT PUBLIC
             return true;
         }catch (JwtException e){
-            throw new IllegalStateException("Token cannot be trusted");
+            throw new GlobalExceptionHandler();
         }
     }
 }
