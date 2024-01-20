@@ -67,7 +67,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Jwts.parser().verifyWith(JwtUtil.SECRET_KEY).build().parseSignedClaims(token); //TODO: PROBABLY SECRET_KEY MUST BE PRIVATE OR AT LEAST NOT PUBLIC
             return true;
         }catch (JwtException e){
-            throw new GlobalExceptionHandler();
+            return false;
         }
     }
 }

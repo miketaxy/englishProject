@@ -51,4 +51,14 @@ public class AuthService{
     public boolean isUsernameTaken(String username){
         return userRepository.findByUsername(username).isPresent();
     }
+
+    public boolean isTokenValid(String bearerToken){
+        String token = bearerToken.substring(7);
+        try{
+            Jwts.parser().verifyWith(JwtUtil.SECRET_KEY).build().parseSignedClaims(token);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 }

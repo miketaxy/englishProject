@@ -17,8 +17,8 @@ public class JwtUtil {
         return Jwts
                 .builder()
                 .subject(user.getUsername())
-                .signWith(SECRET_KEY)
                 .expiration(new Date(System.currentTimeMillis() + 864000000))
+                .signWith(SECRET_KEY)
                 .compact();
     }
     private static SecretKey getSigningKey(){

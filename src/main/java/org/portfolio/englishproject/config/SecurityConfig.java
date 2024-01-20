@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable) //TODO: Csrf must be enabled
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/**").authenticated().requestMatchers("/auth/**").permitAll())
+                        auth.requestMatchers("/user/**").authenticated().requestMatchers("/auth/**").permitAll())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

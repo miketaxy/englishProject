@@ -21,8 +21,6 @@ public class WordController {
     public ResponseEntity<List<Word>> getAllWords(@RequestHeader("Authorization") String bearerToken){
         return service.getAllWords(bearerToken);
     }
-
-
     @DeleteMapping("/deleteWord/{id}")
     public ResponseEntity<String> deleteWord(@PathVariable int id){
         return service.deleteWord(id);
